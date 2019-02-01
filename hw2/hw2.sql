@@ -14,7 +14,7 @@ movieid >= 100 AND movieid <= 1000;
 
 -- 2. Сложные выборки: JOIN
 -- 2.1
-SELECT imdbid FROM links INNER JOIN ratings
+SELECT links.imdbid FROM links INNER JOIN ratings
 ON links.movieid = ratings.movieid 
 WHERE ratings.rating = 5
 GROUP BY imdbid
@@ -23,13 +23,9 @@ LIMIT 10;
 
 -- 3. Аггрегация данных: базовые статистики
 -- 3.1
-SELECT count(*) FROM
-(
-	SELECT * FROM links LEFT JOIN ratings
-	ON links.movieid = ratings.movieid 
-	WHERE ratings.rating IS NULL
-)
-AS tmp;
+SELECT count(*) FROM links LEFT JOIN ratings
+ON links.movieid = ratings.movieid 
+WHERE ratings.rating IS NULL;
 
 -- 3.2
 SELECT userid, avg(rating) AS top_rating
@@ -53,7 +49,7 @@ WITH tmp_table AS
 	HAVING avg(rating) > 3.5
 )
 
-SELECT imdbid FROM links INNER JOIN tmp_table
+SELECT links.imdbid FROM links INNER JOIN tmp_table
 ON links.movieid = tmp_table.movieid
 ORDER BY imdbid -- чтобы сравнить выдачу разных запросов: так останутся не рандомные значения
 LIMIT 10;
