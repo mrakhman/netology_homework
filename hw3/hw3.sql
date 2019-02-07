@@ -40,11 +40,7 @@ ON keywords_1.id = top_rated.movieid;
 
 
 -- Load
-psql -c "\copy (SELECT * FROM top_rated_tags) TO 'top_rated_tags.csv' WITH CSV HEADER DELIMITER AS ',';"
-
--- Через \t выбрасывает ошибку
--- ERROR:  COPY delimiter must be a single one-byte character
--- Поэтому сделала через ','
+psql -c "\copy (SELECT * FROM top_rated_tags) TO 'top_rated_tags.csv' WITH CSV HEADER DELIMITER AS E'\t';"
 
 
 -- Второй вариант выгрузки - сделать dump
