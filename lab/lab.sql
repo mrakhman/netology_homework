@@ -51,7 +51,8 @@ GROUP BY Department.name;
 
 
 -- b
--- Вывести список департаментов, в которых работают 3 и более сотрудников (id и название департамента, количество сотрудников)
+-- Вывести список департаментов, в которых работают 3 и более сотрудников 
+-- (id и название департамента, количество сотрудников)
 SELECT Department.id, Department.name, count(Employee.id) AS num_employees
 FROM Department INNER JOIN Employee
 ON Department.id = Employee.department_id
@@ -61,8 +62,8 @@ ORDER BY Department.id ASC;
 
 
 -- c
--- Вывести список департаментов с максимальным количеством публикаций (id и название департамента, количество публикаций)
-
+-- Вывести список департаментов с максимальным количеством публикаций 
+-- (id и название департамента, количество публикаций)
 WITH tmp_table AS
 (
 	SELECT Department.id AS id, Department.name AS name, sum(Employee.num_public) AS depart_pub_sum
@@ -70,7 +71,11 @@ WITH tmp_table AS
 	ON Department.id = Employee.department_id
 	GROUP BY Department.id
 )
-
 SELECT * FROM tmp_table
-GROUP BY tmp_table.name
-HAVING depart_pub_sum = max(depart_pub_sum);
+WHERE depart_pub_sum = (SELECT max(depart_pub_sum) FROM tmp_table);
+
+
+-- d
+-- Вывести список сотрудников с минимальным количеством публикаций в своем департаменте 
+-- (id и название департамента, имя сотрудника, количество публикаций)
+
