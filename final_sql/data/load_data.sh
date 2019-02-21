@@ -18,7 +18,7 @@ psql -c '
   );'
 
 psql -c \
-    "\\copy booking FROM '/data/booking.csv' DELIMITER ';' CSV HEADER"
+    "\\copy booking FROM 'booking.csv' DELIMITER ';' CSV HEADER"
 
 echo "Загружаем call.csv..."
 psql -c '
@@ -28,7 +28,7 @@ psql -c '
   );'
 
 psql -c \
-    "\\copy call FROM '/data/call.csv' DELIMITER ';' CSV HEADER"
+    "\\copy call FROM 'call.csv' DELIMITER ';' CSV HEADER"
 
 echo "Загружаем client.csv..."
 psql -c '
@@ -41,7 +41,7 @@ psql -c '
   );'
 
 psql -c \
-    "\\copy client FROM '/data/client.csv' DELIMITER ';' CSV HEADER"
+    "\\copy client FROM 'client.csv' DELIMITER ';' CSV HEADER"
 
 echo "Загружаем expense.csv..."
 psql -c '
@@ -54,7 +54,7 @@ psql -c '
   );'
 
 psql -c \
-    "\\copy expense FROM '/data/expense.csv' DELIMITER ';' CSV HEADER"
+    "\\copy expense FROM 'expense.csv' DELIMITER ';' CSV HEADER"
 
 echo "Загружаем shift.csv..."
 psql -c '
@@ -67,7 +67,7 @@ psql -c '
   );'
 
 psql -c \
-    "\\copy shift FROM '/data/shift.csv' DELIMITER ';' CSV HEADER"
+    "\\copy shift FROM 'shift.csv' DELIMITER ';' CSV HEADER"
 
 echo "Загружаем visit.csv..."
 psql -c '
@@ -80,4 +80,4 @@ psql -c '
   );'
 
 psql -c \
-    "\\copy visit FROM '/data/visit.csv' DELIMITER ';' CSV HEADER"
+    "\\copy visit FROM 'visit.csv' DELIMITER ';' CSV HEADER"
