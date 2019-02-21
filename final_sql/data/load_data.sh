@@ -1,5 +1,9 @@
 #!/bin/sh
 
+psql -c "DROP SCHEMA IF EXISTS final_sql;"
+psql -c "CREATE SCHEMA final_sql;"
+psql -c "SET search_path TO final_sql;"
+
 psql -c "DROP TABLE IF EXISTS booking"
 psql -c "DROP TABLE IF EXISTS call"
 psql -c "DROP TABLE IF EXISTS client"
@@ -50,7 +54,8 @@ psql -c '
     client_id bigint,
     place_id int,
     is_promo_type bool,
-    creation_utc timestamp
+    creation_utc timestamp,
+    creator_employee_id int
   );'
 
 psql -c \
