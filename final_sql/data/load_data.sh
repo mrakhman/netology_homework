@@ -13,7 +13,7 @@ psql -c "DROP TABLE IF EXISTS visit"
 
 echo "Загружаем booking.csv..."
 psql -c '
-  CREATE TABLE booking (
+  CREATE TABLE final_sql.booking (
     booking_id bigint,
     client_id bigint,
     place_id int,
@@ -26,7 +26,7 @@ psql -c \
 
 echo "Загружаем call.csv..."
 psql -c '
-  CREATE TABLE call (
+  CREATE TABLE final_sql.call (
     timestamp_utc timestamp,
     place_id int
   );'
@@ -36,7 +36,7 @@ psql -c \
 
 echo "Загружаем client.csv..."
 psql -c '
-  CREATE TABLE client (
+  CREATE TABLE final_sql.client (
     client_id bigint,
     card_level int,
     creator_employee_id bigint,
@@ -49,7 +49,7 @@ psql -c \
 
 echo "Загружаем expense.csv..."
 psql -c '
-  CREATE TABLE expense (
+  CREATE TABLE final_sql.expense (
     expense_id bigint,
     client_id bigint,
     place_id int,
@@ -63,7 +63,7 @@ psql -c \
 
 echo "Загружаем shift.csv..."
 psql -c '
-  CREATE TABLE shift (
+  CREATE TABLE final_sql.shift (
     shift_id bigint,
     place_id int,
     employee_id bigint,
@@ -76,7 +76,7 @@ psql -c \
 
 echo "Загружаем visit.csv..."
 psql -c '
-  CREATE TABLE visit (
+  CREATE TABLE final_sql.visit (
     visit_id bigint,
     client_id bigint,
     place_id int,
