@@ -81,5 +81,5 @@ psql -c '
 psql -c \
     "\\copy final_sql.visit FROM 'visit.csv' DELIMITER ';' CSV HEADER"
 
-echo \n
+echo "\n"
 echo "Загрузка данных завершена!"
