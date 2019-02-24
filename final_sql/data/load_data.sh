@@ -5,7 +5,6 @@ psql -c "CREATE SCHEMA final_sql;"
 psql -c "SET search_path TO final_sql;"
 
 psql -c "DROP TABLE IF EXISTS booking"
-psql -c "DROP TABLE IF EXISTS call"
 psql -c "DROP TABLE IF EXISTS client"
 psql -c "DROP TABLE IF EXISTS expense"
 psql -c "DROP TABLE IF EXISTS shift"
@@ -24,15 +23,6 @@ psql -c '
 psql -c \
     "\\copy final_sql.booking FROM 'booking.csv' DELIMITER ';' CSV HEADER"
 
-echo "Загружаем call.csv..."
-psql -c '
-  CREATE TABLE final_sql.call (
-    timestamp_utc timestamp,
-    place_id int
-  );'
-
-psql -c \
-    "\\copy final_sql.call FROM 'call.csv' DELIMITER ';' CSV HEADER"
 
 echo "Загружаем client.csv..."
 psql -c '
@@ -46,6 +36,7 @@ psql -c '
 
 psql -c \
     "\\copy final_sql.client FROM 'client.csv' DELIMITER ';' CSV HEADER"
+
 
 echo "Загружаем expense.csv..."
 psql -c '
@@ -61,6 +52,7 @@ psql -c '
 psql -c \
     "\\copy final_sql.expense FROM 'expense.csv' DELIMITER ';' CSV HEADER"
 
+
 echo "Загружаем shift.csv..."
 psql -c '
   CREATE TABLE final_sql.shift (
@@ -73,6 +65,7 @@ psql -c '
 
 psql -c \
     "\\copy final_sql.shift FROM 'shift.csv' DELIMITER ';' CSV HEADER"
+
 
 echo "Загружаем visit.csv..."
 psql -c '
