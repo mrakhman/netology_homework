@@ -2,7 +2,8 @@
 
 psql -c "DROP SCHEMA IF EXISTS final_sql;"
 psql -c "CREATE SCHEMA final_sql;"
-psql -c "SET search_path TO final_sql;"
+psql -c "SET search_path TO final_sql;" # Здесь переулбчаемся на новую схему, после входа в косноль postgres команду надо повторить еще раз
+
 
 psql -c "DROP TABLE IF EXISTS booking"
 psql -c "DROP TABLE IF EXISTS client"
@@ -79,3 +80,6 @@ psql -c '
 
 psql -c \
     "\\copy final_sql.visit FROM 'visit.csv' DELIMITER ';' CSV HEADER"
+
+echo \n
+echo "Загрузка данных завершена!"
