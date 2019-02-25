@@ -66,7 +66,7 @@ psql -c '
   );'
 
 psql -c \
-    "\\copy final_sql.shift FROM 'shift.csv' DELIMITER ';' CSV HEADER"
+    "\\copy final_sql.shift FROM 'shift.csv' DELIMITER ',' CSV HEADER"
 
 
 echo "Загружаем visit.csv..."
