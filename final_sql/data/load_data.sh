@@ -52,7 +52,7 @@ psql -c '
   );'
 
 psql -c \
-    "\\copy final_sql.expense FROM 'expenses_out.csv' DELIMITER ';' CSV HEADER"
+    "\\copy final_sql.expense FROM 'expense.csv' DELIMITER ';' CSV HEADER"
 
 
 echo "Загружаем shift.csv..."
