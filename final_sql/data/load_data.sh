@@ -39,7 +39,7 @@ psql -c \
     "\\copy final_sql.client FROM 'client.csv' DELIMITER ';' CSV HEADER"
 
 
-echo "Загружаем expense.csv..."
+echo "Загружаем expense.csv..." # I will change it!
 psql -c '
   CREATE TABLE final_sql.expense (
     expense_id bigint,
