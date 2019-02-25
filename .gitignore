@@ -1,1 +1,2 @@
-final_sql/data/expense.csv
+final_sql/data/*.csv
+final_sql/data/*.py

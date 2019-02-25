@@ -1,15 +1,15 @@
 #!/bin/sh
 
-psql -c "DROP SCHEMA IF EXISTS final_sql;"
+psql -c "DROP SCHEMA IF EXISTS final_sql CASCADE;"
 psql -c "CREATE SCHEMA final_sql;"
 psql -c "SET search_path TO final_sql;" # Здесь переулбчаемся на новую схему, после входа в косноль postgres команду надо повторить еще раз
 
 
-psql -c "DROP TABLE IF EXISTS booking"
-psql -c "DROP TABLE IF EXISTS client"
-psql -c "DROP TABLE IF EXISTS expense"
-psql -c "DROP TABLE IF EXISTS shift"
-psql -c "DROP TABLE IF EXISTS visit"
+# psql -c "DROP TABLE IF EXISTS booking" # Not necessary because we drop whole SCHEMA
+# psql -c "DROP TABLE IF EXISTS client"
+# psql -c "DROP TABLE IF EXISTS expense"
+# psql -c "DROP TABLE IF EXISTS shift"
+# psql -c "DROP TABLE IF EXISTS visit"
 
 echo "Загружаем booking.csv..."
 psql -c '
@@ -52,7 +52,7 @@ psql -c '
   );'
 
 psql -c \
-    "\\copy final_sql.expense FROM 'expense.csv' DELIMITER ';' CSV HEADER"
+    "\\copy final_sql.expense FROM 'expenses_out.csv' DELIMITER ';' CSV HEADER"
 
 
 echo "Загружаем shift.csv..."
