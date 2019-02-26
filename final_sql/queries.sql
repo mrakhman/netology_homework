@@ -1,5 +1,6 @@
 SET search_path TO final_sql;
 
+
 -- 1 [expense]
 -- Показать топ 10 клиентов, которые потратили больше всего денег в антикафе.
 SELECT client_id, sum(amount) AS total_expense
@@ -7,6 +8,7 @@ FROM expense
 GROUP BY client_id
 ORDER BY sum(amount) DESC
 LIMIT 10;
+
 
 
 -- 2 [expense + visit]
@@ -29,6 +31,7 @@ GROUP BY expense.place_id, n_visits.n_visits
 ORDER BY sum(amount) DESC;
 
 
+
 -- 3 [expense + client]
 -- Показать, какую выручку в % приносят клиенты с каждым типом карты (card_level).
 SELECT card_level, sum(amount) AS revenue,
@@ -41,6 +44,7 @@ GROUP BY card_level
 ORDER BY sum(amount) DESC;
 
 
+
 -- 4 [client]
 -- Кто из сотрудников зарегистрировал больше всего клиентов, топ 10.
 SELECT creation_place_id AS cafe_id, creator_employee_id AS employee_id, count(creator_employee_id) AS n_registered_users
@@ -48,6 +52,7 @@ FROM client
 GROUP BY creation_place_id, creator_employee_id
 ORDER BY count(creator_employee_id) DESC
 LIMIT 10;
+
 
 
 -- 5 [client + visit]
@@ -77,6 +82,7 @@ ORDER BY count(visit_id) DESC
 LIMIT 40;
 
 
+
 -- 6 [client + visit]
 -- Показать долю посещений клиентов с гостевой картой от общего числа посещений по каждому антикафе.
 SELECT place_id, count(visit_id) AS total_visits, 
@@ -87,6 +93,7 @@ GROUP BY visit.place_id
 ORDER BY count(visit_id) DESC;
 
 
+
 -- 7 [booking + client]
 -- Показать, клиенты с каким уровнем карты чаще всего бронируют комнаты, по убыванию.
 SELECT card_level, count(booking_id) AS n_bookings
@@ -94,6 +101,7 @@ FROM booking INNER JOIN client
 ON booking.client_id = client.client_id
 GROUP BY card_level
 ORDER BY count(booking_id) DESC;
+
 
 
 -- 8 [client + shift]
@@ -108,6 +116,7 @@ ORDER BY count(client.client_id) DESC
 LIMIT 10;
 
 
+
 -- 9 [visit]
 -- Показать среднее количество посещений за последние 3 месяца (23.08.18 - 23.11.18) в выходной день и в рабочий.
 SELECT 
@@ -120,13 +129,13 @@ WHERE start_utc >= '2018-08-23 00:00:00'
 AND finish_utc <= '2018-11-23 23:59:59';
 
 
--- 9 [visit]
--- Среднее количество гостей в утреннюю, дневную, вечернюю смену за октябрь и ноябрь
+
+-- 10 [visit]
+-- Среднее количество гостей в утреннюю, дневную, вечернюю смену за последний месяц по каждому кафе.
 -- Для этого не обязательно JOIN'ить таблицу shift, так как и там и там используется timestamp 
 -- и время смен всегда одигаковое: 08:00 - 15:00, 15:00 - 22:00, 22:00 - 08:00
 -- в базе время стоит в UTC, а Москва UTC+3. Поэтому в запросе пересменки в 05:00, 12:00 и 19:00
-SELECT
-place_id AS cafe_id,
+SELECT place_id AS cafe_id,
 (count(visit_id) FILTER (WHERE start_utc::time >= '05:00:00'::time AND start_utc::time < '12:00:00'::time)) / 31 AS morning_shift,
 (count(visit_id) FILTER (WHERE start_utc::time >= '12:00:00'::time AND start_utc::time < '19:00:00'::time)) / 31 AS daytime_shift,
 (count(visit_id) FILTER (WHERE (start_utc::time >= '19:00:00'::time AND start_utc::time <= '23:59:59'::time) OR (start_utc::time >= '00:00:00'::time AND start_utc::time < '05:00:00'::time))) / 31 AS night_shift
