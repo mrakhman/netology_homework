@@ -52,8 +52,13 @@ ORDER BY sum(amount) DESC;
 
 
 -- 4 [client + visit]
--- Показать долю посещений клиентов с гостевой картой от общего числа посещений по каждому антикафе
-ЗДЕСЬ
+-- Показать долю посещений клиентов с гостевой картой от общего числа посещений отдельно по каждому клубу
+SELECT place_id, count(visit_id) AS total_visits, 
+count(visit_id) FILTER (WHERE client_id IN (SELECT client_id FROM client WHERE card_level = 1)) AS guest_visits,
+100 * count(visit_id) FILTER (WHERE client_id IN (SELECT client_id FROM client WHERE card_level = 1)) / count(visit_id) AS guests_percent
+FROM visit
+GROUP BY visit.place_id
+ORDER BY count(visit_id) DESC;
 
 
 -- 7 [client]
