@@ -1,4 +1,4 @@
-Unzip archive with data
-cp .csv files to data folder (this)
+Unzip archive with data \n
+cp .csv files to data folder (this) \n
 sh load_data.sh
 
