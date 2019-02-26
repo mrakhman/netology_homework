@@ -1,6 +1,3 @@
--- 3 Показать, какую выручку приносят клиенты с каждым типом карты (card_level) [expense + client]
-
--- 4 Показать долю посещений клиентов с гостевой картой от общего числа посещений по каждому антикафе [client + visit]
 
 -- 5 Показать, клиенты с каким уровнем карты чаще всего бронируют комнаты [booking + client]
 
@@ -41,21 +38,22 @@ AND expense.creation_utc < '2018-11-01 00:00:00'
 GROUP BY expense.place_id, n_visits.n_visits
 ORDER BY sum(amount) DESC;
 
--- 3 [expense + client]
--- Показать, какую выручку в % приносят клиенты с каждым типом карты (card_level)
-SELECT card_level, sum(amount) AS revenue,
-sum(amount) OVER () AS total_rev
-FROM client INNER JOIN expense
-ON client.client_id = expense.client_id; --  2850820-wrong total_rev = 8316332
-;
- ЗАСТРЯЛА ТУТ
 
-SELECT card_level, sum(amount) AS revenue
+-- 3 [expense + client]
+-- Показать, какую выручку в % приносят клиенты с каждым типом карты (card_level).
+SELECT card_level, sum(amount) AS revenue,
+sum(sum(amount)) OVER () AS total_revenue,
+-- Берем (revenue по типу карты / total_revenue) * 100 % и округляем до 2 знаков после ,
+round(sum(amount) * 100 / sum(sum(amount)) OVER (), 2) AS percent_of_revenue
 FROM client INNER JOIN expense
 ON client.client_id = expense.client_id
 GROUP BY card_level
 ORDER BY sum(amount) DESC;
 
+
+-- 4 [client + visit]
+-- Показать долю посещений клиентов с гостевой картой от общего числа посещений по каждому антикафе
+ЗДЕСЬ
 
 
 -- 7 [client]
