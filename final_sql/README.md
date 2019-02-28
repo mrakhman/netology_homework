@@ -1,5 +1,5 @@
-Unzip archive with data
+Unzip archive data.zip
 
-cp .csv files to data folder (this)
+cp load_data.sh to data folder that you unzipped
 
 sh load_data.sh
